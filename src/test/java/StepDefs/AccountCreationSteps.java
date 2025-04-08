@@ -4,29 +4,32 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
+import org.junit.Assert;
+import org.testng.asserts.SoftAssert;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 
 import java.time.Duration;
 
-import utils.TestData;
 import utils.DriverManager;
 
-
-
+import static org.junit.Assert.assertEquals;
 
 
 public class AccountCreationSteps {
 
 
     WebDriver driver = DriverManager.getDriver();
+    SoftAssert softAssert = new SoftAssert();
 
 
 
 
 
-    private WebElement waitForElement(By locator){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+
+    private WebElement waitForElement(By locator, int timeOutInSeconds){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOutInSeconds));
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
     
@@ -38,41 +41,45 @@ public class AccountCreationSteps {
     }
 
     @And("User enters their date of birth as {string}")
-    public void userEntersTheirDateOfBirthAs(String input) {
-        driver.findElement(By.id("dp")).sendKeys(TestData.dob);
+    public void userEntersTheirDateOfBirthAs(String dob) {
+        WebElement dobField= waitForElement(By.id("dp"), 5);
+        dobField.clear();
+        dobField.sendKeys(dob);
 
     }
 
     @And("User enters first name as {string}")
-    public void userEntersFirstNameAs(String input) {
-        driver.findElement(By.id("member_firstname")).sendKeys(TestData.firstName);
+    public void userEntersFirstNameAs(String first_name) {
+        WebElement firstNameField = waitForElement(By.id("member_firstname"), 5);
+        firstNameField.clear();
+        firstNameField.sendKeys(first_name);
 
     }
 
     @And("User enters last name as {string}")
-    public void userEntersLastNameAs(String input) {
-        driver.findElement(By.id("member_lastname")).sendKeys(TestData.lastName);
+    public void userEntersLastNameAs(String last_name) {
+        driver.findElement(By.id("member_lastname")).sendKeys(last_name);
 
     }
 
     @And("User enters email address as {string}")
-    public void userEntersEmailAddressAs(String input) {
-        driver.findElement(By.id("member_emailaddress")).sendKeys(TestData.email);
+    public void userEntersEmailAddressAs(String email) {
+        driver.findElement(By.id("member_emailaddress")).sendKeys(email);
     }
 
     @And("User confirms email as {string}")
-    public void userConfirmsEmailAs(String input) {
-        driver.findElement(By.id("member_confirmemailaddress")).sendKeys(TestData.email);
+    public void userConfirmsEmailAs(String email) {
+        driver.findElement(By.id("member_confirmemailaddress")).sendKeys(email);
     }
 
     @And("User enters password as {string}")
-    public void userEntersPasswordAs(String input) {
-        driver.findElement(By.id("signupunlicenced_password")).sendKeys(TestData.password);
+    public void userEntersPasswordAs(String password) {
+        driver.findElement(By.id("signupunlicenced_password")).sendKeys(password);
     }
 
     @And("User confirms password as {string}")
-    public void userConfirmsPasswordAs( String input) {
-        driver.findElement(By.id("signupunlicenced_confirmpassword")).sendKeys(TestData.password);
+    public void userConfirmsPasswordAs( String password) {
+        driver.findElement(By.id("signupunlicenced_confirmpassword")).sendKeys(password);
     }
 
     @And("User selects roles as {string}")
@@ -91,10 +98,13 @@ public class AccountCreationSteps {
 
     @And("User accepts the ToS")
     public void userAcceptsTheToS() {
+        driver.findElement(By.cssSelector(".md-checkbox > .md-checkbox:nth-child(1) .box")).click();
+        driver.findElement(By.cssSelector(".md-checkbox:nth-child(2) > label > .box")).click();
     }
 
     @And("User accepts the Code of Conduct")
     public void userAcceptsTheCodeOfConduct() {
+        driver.findElement(By.cssSelector(".md-checkbox:nth-child(7) .box")).click();
     }
 
     @And("User clicks on the confirm and join button")
@@ -107,21 +117,57 @@ public class AccountCreationSteps {
 
     @And("User does not accept the ToS")
     public void userDoesNotAcceptTheToS() {
+        WebElement tosErrorMessage = waitForElement(By.xpath("//*[@id='signup_form']/div[11]/div/div[2]/div[1]/span/span)"), 5);
+
+        if(tosErrorMessage.isDisplayed()) {
+            String actual = tosErrorMessage.getText().trim();
+            String expected = "You must confirm that you have read and accepted our Terms and Conditions";
+
+
+            softAssert.assertEquals(expected,actual);
+        } else {
+            System.out.println("Error message for ToS is not displayed");
+        }
+
     }
 
     @Then("A error message pops up indicating what the user did wrong")
     public void aErrorMessagePopsUpIndicatingWhatTheUserDidWrong() {
     }
 
-    @And("Check that User accepted communication")
-    public void checkThatUserAcceptedCommunication() {
-    }
+
 
     @And("Check that User accepted ToS")
     public void checkThatUserAcceptedToS() {
+        WebElement tosCheckBox = waitForElement(By.xpath("//*[@id=\"sign_up_25\"]"), 5);
+
+        if (tosCheckBox.isSelected()) {
+            System.out.println("ToS checkbox is selected");
+
+        } else {
+            System.out.println("ToS checkbox is NOT selected");
+        }
     }
 
     @And("Check that User accepted Code of Conduct")
     public void checkThatUserAcceptedCodeOfConduct() {
+        WebElement cocErrorMessage = waitForElement(By.xpath("//*[@id='signup_form']/div[11]/div/div[7]/span/span)"), 5);
+
+        if (cocErrorMessage.isDisplayed()) {
+            String actual = cocErrorMessage.getText().trim();
+            String expected = "You must confirm that you have read, understood and agree to the Code of Ethics and Conduct";
+
+            softAssert.assertEquals(actual,expected);
+        } else {
+            System.out.println("Error message for CoC is not displayed");
+        }
+    }
+
+    @And("Verify that we are on the {string} Page")
+    public void verifyThatWeAreOnThePage(String arg0) {
+    }
+
+    @And("User verifies that the passwords are correct")
+    public void userVerifiesThatThePasswordsAreCorrect() {
     }
 }

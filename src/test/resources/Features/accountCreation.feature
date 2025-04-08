@@ -2,6 +2,7 @@ Feature: Account creation for Basketball England
 
   Background:
     Given Navigate to the "New Supporter Account" Page
+    And Verify that we are on the "New Supporter Account" Page
     And User enters their date of birth as "<dob>"
 
   Scenario Outline: Successful account creation
@@ -13,7 +14,6 @@ Feature: Account creation for Basketball England
     And User confirms password as "<password>"
     And User selects roles as "<role>"
     And User accepts communication
-    And Check that User accepted communication
     And User accepts the ToS
     And Check that User accepted ToS
     And User accepts the Code of Conduct
@@ -22,8 +22,9 @@ Feature: Account creation for Basketball England
     Then A successful account is created
 
     Examples:
-      | dob | first_name | last_name | email | password | role   |
-      | dob | first_name | last_name | email | password | Player |
+      | dob        | first_name | last_name  | email                         | password | role   |
+      | 06/09/1995 | Wilhelm    | Helmersson | wilhelmhelmersson@example.com | Wille123 | Player |
+      | 06/09/1994 | Vilhelm    | Andersson  | vilhelmandersson@example.com  | Ville123 | Player |
 
   Scenario Outline: Account creation without last name
       And User enters first name as "<first_name>"
@@ -33,15 +34,15 @@ Feature: Account creation for Basketball England
       And User enters password as "<password>"
       And User confirms password as "<password>"
       And User selects roles as "<role>"
-      And User accepts communication
       And User accepts the ToS
       And User accepts the Code of Conduct
       And User clicks on the confirm and join button
       Then A error message pops up indicating what the user did wrong
 
       Examples:
-        | dob | first_name | last_name | email | password | role   |
-        | dob | first_name |           | email | password | Player |
+        | dob        | first_name | last_name | email                         | password | role   |
+        | 06/09/1995 | Wilhelm    |           | wilhelmhelmersson@example.com | Wille123 | Player |
+        | 06/09/1994 | Vilhelm    |           | vilhelmandersson@example.com  | Ville123 | Player |
 
   Scenario Outline: Account creation with missmatched passwords
     And User enters first name as "<first_name>"
@@ -50,16 +51,17 @@ Feature: Account creation for Basketball England
     And User confirms email as "<email>"
     And User enters password as "<password>"
     And User confirms password as "<notTheSamePassword>"
+    And User verifies that the passwords are correct
     And User selects roles as "<role>"
-    And User accepts communication
     And User accepts the ToS
     And User accepts the Code of Conduct
     And User clicks on the confirm and join button
     Then A error message pops up indicating what the user did wrong
 
     Examples:
-      | dob | first_name | last_name | email | password | notTheSamePassword    | role   |
-      | dob | first_name | last_name | email | password | notTheSamePassword123 | Player |
+      | dob        | first_name | last_name  | email                         | password | notTheSamePassword | role   |
+      | 06/09/1995 | Wilhelm    | Helmersson | wilhelmhelmersson@example.com | Wille123 | wille123           | Player |
+      | 06/09/1994 | Vilhelm    | Andersson  | vilhelmandersson@example.com  | Ville123 | ville123           | Player |
 
   Scenario Outline: account creation without accepting ToS
     And User enters first name as "<first_name>"
@@ -69,12 +71,12 @@ Feature: Account creation for Basketball England
     And User enters password as "<password>"
     And User confirms password as "<password>"
     And User selects roles as "<role>"
-    And User accepts communication
     And User does not accept the ToS
     And User accepts the Code of Conduct
     And User clicks on the confirm and join button
     Then A error message pops up indicating what the user did wrong
 
     Examples:
-      | dob | first_name | last_name | email | password | role   |
-      | dob | first_name | last_name | email | password | Player |
+      | dob        | first_name | last_name  | email                         | password | role   |
+      | 06/09/1995 | Wilhelm    | Helmersson | wilhelmhelmersson@example.com | Wille123 | Player |
+      | 06/09/1994 | Vilhelm    | Andersson  | vilhelmandersson@example.com  | Ville123 | Player |
