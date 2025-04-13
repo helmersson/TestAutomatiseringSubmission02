@@ -3,9 +3,10 @@ Feature: Account creation for Basketball England
   Background:
     Given Navigate to the "New Supporter Account" Page
     And Verify that we are on the "New Supporter Account" Page
-    And User enters their date of birth as "<dob>"
+
 
   Scenario Outline: Successful account creation
+    And User enters their date of birth as "<dob>"
     And User enters first name as "<first_name>"
     And User enters last name as "<last_name>"
     And User enters email address as "<email>"
@@ -27,7 +28,8 @@ Feature: Account creation for Basketball England
       | 06/09/1994 | Vilhelm    | Andersson  | vilhelmandersson@example.com  | Ville123 | Player |
 
   Scenario Outline: Account creation without last name
-      And User enters first name as "<first_name>"
+    And User enters their date of birth as "<dob>"
+    And User enters first name as "<first_name>"
       And User enters last name as "<last_name>"
       And User enters email address as "<email>"
       And User confirms email as "<email>"
@@ -45,6 +47,7 @@ Feature: Account creation for Basketball England
         | 06/09/1994 | Vilhelm    |           | vilhelmandersson@example.com  | Ville123 | Player |
 
   Scenario Outline: Account creation with missmatched passwords
+    And User enters their date of birth as "<dob>"
     And User enters first name as "<first_name>"
     And User enters last name as "<last_name>"
     And User enters email address as "<email>"
@@ -64,6 +67,7 @@ Feature: Account creation for Basketball England
       | 06/09/1994 | Vilhelm    | Andersson  | vilhelmandersson@example.com  | Ville123 | ville123           | Player |
 
   Scenario Outline: account creation without accepting ToS
+    And User enters their date of birth as "<dob>"
     And User enters first name as "<first_name>"
     And User enters last name as "<last_name>"
     And User enters email address as "<email>"
