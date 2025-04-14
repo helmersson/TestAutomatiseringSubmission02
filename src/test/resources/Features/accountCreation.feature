@@ -52,7 +52,6 @@ Feature: Account creation for Basketball England
     And User confirms email as "<email>"
     And User enters password as "<password>"
     And User confirms password as "<notTheSamePassword>"
-    And User verifies that the passwords are correct
     And User selects roles as "<role>"
     And User accepts the ToS
     And User accepts the Code of Conduct

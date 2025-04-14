@@ -4,8 +4,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
-import org.junit.Assert;
-
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 
@@ -150,9 +148,6 @@ public class AccountCreationSteps {
         System.out.println("Expected =" + expected + "," + "Actual =" + actual);
     }
 
-    @And("User verifies that the passwords are correct")
-    public void userVerifiesThatThePasswordsAreCorrect() {
-    }
 
     // **ERROR HANDLING*
 
