@@ -30,6 +30,11 @@ public class AccountCreationSteps {
     public void checkSoThatWeAreOnThePage(String string) {
         driver.get("https://membership.basketballengland.co.uk/NewSupporterAccount");
 
+        String actual = driver.getTitle();
+        String expected = "Basketball England Members Area";
+
+        assertEquals(expected, actual);
+        System.out.println("Expected =" + expected + "," + "Actual =" + actual);
     }
 
     // **INPUT**
@@ -138,6 +143,11 @@ public class AccountCreationSteps {
 
     @And("Verify that we are on the {string} Page")
     public void verifyThatWeAreOnThePage(String arg0) {
+        String actual = driver.getCurrentUrl();
+        String expected = "https://membership.basketballengland.co.uk/NewSupporterAccount";
+
+        assertEquals(expected,actual);
+        System.out.println("Expected =" + expected + "," + "Actual =" + actual);
     }
 
     @And("User verifies that the passwords are correct")
