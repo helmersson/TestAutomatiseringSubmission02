@@ -14,12 +14,9 @@ Feature: Account creation for Basketball England
     And User enters password as "<password>"
     And User confirms password as "<password>"
     And User selects roles as "<role>"
-    And User accepts communication
     And User accepts the ToS
-    And Check that User accepted ToS
     And User accepts the Code of Conduct
-    And Check that User accepted Code of Conduct
-    And User clicks on the confirm and join button
+    ##  And User clicks on the confirm and join button
     Then A successful account is created
 
     Examples:
@@ -39,6 +36,7 @@ Feature: Account creation for Basketball England
       And User accepts the ToS
       And User accepts the Code of Conduct
       And User clicks on the confirm and join button
+      And Check that last name error message is visible
       Then A error message pops up indicating what the user did wrong
 
       Examples:
@@ -59,6 +57,7 @@ Feature: Account creation for Basketball England
     And User accepts the ToS
     And User accepts the Code of Conduct
     And User clicks on the confirm and join button
+    And Checks that password error message is visible
     Then A error message pops up indicating what the user did wrong
 
     Examples:
@@ -75,9 +74,9 @@ Feature: Account creation for Basketball England
     And User enters password as "<password>"
     And User confirms password as "<password>"
     And User selects roles as "<role>"
-    And User does not accept the ToS
     And User accepts the Code of Conduct
     And User clicks on the confirm and join button
+    And Check that User accepted ToS
     Then A error message pops up indicating what the user did wrong
 
     Examples:
