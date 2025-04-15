@@ -9,17 +9,23 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class TestBrowsers {
 
     public static WebDriver getDriver(String browser) {
-        if (browser.equalsIgnoreCase("chrome")) {
-            WebDriverManager.chromedriver().setup();
-            return new ChromeDriver();
-        } else if (browser.equalsIgnoreCase("firefox")) {
-            WebDriverManager.firefoxdriver().setup();
-            return new FirefoxDriver();
-        } else if (browser.equalsIgnoreCase("edge")) {
-            WebDriverManager.edgedriver().setup();
-            return new EdgeDriver();
-        } else {
-            throw new RuntimeException("Unsupported browser: " + browser);
+        WebDriver driver;
+        switch (browser.toLowerCase()) {
+            case "chrome":
+                WebDriverManager.chromedriver().setup();
+                driver = new ChromeDriver();
+                break;
+            case "firefox":
+                WebDriverManager.firefoxdriver().setup();
+                driver = new FirefoxDriver();
+                break;
+            case "edge":
+                WebDriverManager.edgedriver().setup();
+                driver = new EdgeDriver();
+                break;
+            default:
+                throw new RuntimeException("Unsupported browser: " + browser);
         }
+        return driver;
     }
 }

@@ -1,5 +1,4 @@
 package StepDefs;
-
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -10,6 +9,7 @@ import org.openqa.selenium.support.ui.*;
 import java.time.Duration;
 
 import utils.DriverManager;
+import utils.TestBrowsers;
 
 import static org.junit.Assert.assertEquals;
 
@@ -17,6 +17,14 @@ import static org.junit.Assert.assertEquals;
 public class AccountCreationSteps {
 
     WebDriver driver = DriverManager.getDriver();
+    @Given("I launch the application in {string}")
+    public void i_launch_the_application_in(String browser) {
+        Hooks.browserName = browser;
+        WebDriver driver = TestBrowsers.getDriver(browser);
+        System.out.println("Testing with the following browser: " + browser);
+        DriverManager.setDriver(driver);
+        this.driver = driver;
+    }
 
     private WebElement waitForElement(By locator, int timeOutInSeconds){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOutInSeconds));
@@ -39,7 +47,7 @@ public class AccountCreationSteps {
 
     @And("User enters their date of birth as {string}")
     public void userEntersTheirDateOfBirthAs(String dob) {
-        WebElement dobField = waitForElement(By.id("dp"), 5);
+        WebElement dobField = waitForElement(By.id("dp"), 10);
         dobField.clear();
         dobField.sendKeys(dob);
 
