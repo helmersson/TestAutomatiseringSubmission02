@@ -17,13 +17,14 @@ import static org.junit.Assert.assertEquals;
 public class AccountCreationSteps {
 
     WebDriver driver = DriverManager.getDriver();
+
+
     @Given("I launch the application in {string}")
     public void i_launch_the_application_in(String browser) {
         Hooks.browserName = browser;
-        WebDriver driver = TestBrowsers.getDriver(browser);
+        this.driver = DriverManager.getDriver();
         System.out.println("Testing with the following browser: " + browser);
-        DriverManager.setDriver(driver);
-        this.driver = driver;
+
     }
 
     private WebElement waitForElement(By locator, int timeOutInSeconds){
@@ -34,6 +35,8 @@ public class AccountCreationSteps {
     // **NAVIGATION**
     @Given("Navigate to the {string} Page")
     public void checkSoThatWeAreOnThePage(String string) {
+        this.driver = DriverManager.getDriver();
+
         driver.get("https://membership.basketballengland.co.uk/NewSupporterAccount");
 
         String actual = driver.getTitle();
