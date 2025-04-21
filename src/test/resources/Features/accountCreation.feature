@@ -40,8 +40,7 @@ Feature: Account creation for Basketball England
     And User accepts the ToS
     And User accepts the Code of Conduct
     And User clicks on the confirm and join button
-    And Check that last name error message is visible
-    Then A error message pops up indicating what the user did wrong
+    Then Check that last name error message is visible
 
     Examples:
       | browser | dob        | first_name | last_name | email                         | password | role   |
@@ -65,8 +64,7 @@ Feature: Account creation for Basketball England
     And User accepts the ToS
     And User accepts the Code of Conduct
     And User clicks on the confirm and join button
-    And Checks that password error message is visible
-    Then A error message pops up indicating what the user did wrong
+    Then Checks that password error message is visible
 
     Examples:
       | browser | dob        | first_name | last_name  | email                         | password | notTheSamePassword | role   |
@@ -89,8 +87,7 @@ Feature: Account creation for Basketball England
     And User selects roles as "<role>"
     And User accepts the Code of Conduct
     And User clicks on the confirm and join button
-    And Check that User accepted ToS
-    Then A error message pops up indicating what the user did wrong
+    Then Check that User accepted ToS
 
     Examples:
       | browser | dob        | first_name | last_name  | email                         | password | role   |
