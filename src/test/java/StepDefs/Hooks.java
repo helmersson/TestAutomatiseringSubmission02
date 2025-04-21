@@ -10,7 +10,10 @@ import org.openqa.selenium.WebDriver;
 
 public class Hooks {
 
+    // Baseline browser is overridden in the feature file
     public static String browserName = "chrome";
+
+
 
     @Before
     public void setUp(Scenario scenario) {
@@ -28,6 +31,8 @@ public class Hooks {
 
 
     }
+
+    // Clears the WebDriverManager cache, had issues with this when i tried CI
     public void cleanWebDriverManagerCache() {
         try {
             WebDriverManager.chromedriver().clearDriverCache();
