@@ -11,7 +11,10 @@ public class DriverManager {
 
     public static WebDriver getDriver() {
         if (driver == null) {
-            throw new IllegalStateException("Driver not initialized. Call setDriver() first.");
+            // Create a default Chrome driver if none exists
+            WebDriver defaultDriver = TestBrowsers.getDriver("chrome");
+            driver = defaultDriver;
+            System.out.println("Created default Chrome driver");
         }
         return driver;
     }
